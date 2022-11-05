@@ -68,10 +68,6 @@ bot.callbackQuery("about", async (ctx) => {
   });
 });
 bot.on(":location", async (ctx) => {
-  await ctx.api.deleteMessage(
-    ctx.chat!.id,
-    log_loc_msg.get(ctx.chat!.id)!.message_id,
-  );
   await ctx.deleteMessage();
   const waste_types = new InlineKeyboard()
     .text("Recyclable", "waste_type recyclable")
@@ -246,6 +242,10 @@ bot.callbackQuery(/order_stats/, async (ctx) => {
       `Your order has been rejected by the pickup partner. Kindly place another order.`,
     );
   }
+  await ctx.api.deleteMessage(
+    ctx.chat!.id,
+    log_loc_msg.get(ctx.chat!.id)!.message_id,
+  );
 });
 await bot.init();
 export default bot;
